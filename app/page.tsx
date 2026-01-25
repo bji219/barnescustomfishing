@@ -13,7 +13,7 @@ export default function Home() {
             Handcrafted in New Jersey
           </p>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-light tracking-wide mb-6 text-navy">
-            Custom Tuna Rods
+            Custom Wrapped Fishing Rods
           </h1>
           <p className="text-navy/60 text-lg max-w-2xl mx-auto">
             Premium fishing rods built with precision and care in Manahawkin, NJ
@@ -40,12 +40,12 @@ export default function Home() {
               Our Story
             </h2>
             <p className="text-navy/70 text-lg leading-relaxed mb-6">
-              Barnes Custom Fishing is dedicated to crafting premium tuna rods for serious anglers.
+              Barnes Custom Fishing is dedicated to crafting premium hand wrapped fishing rods for serious anglers.
               Based in Manahawkin, New Jersey, we combine traditional craftsmanship with modern
               techniques to create rods that perform when it matters most.
             </p>
             <p className="text-navy/70 text-lg leading-relaxed">
-              Every rod is built by hand with attention to detail and a commitment to quality
+              Every rod is hand wrapped with attention to detail and a commitment to quality
               that you can feel the moment you pick it up.
             </p>
           </div>
