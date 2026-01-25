@@ -21,18 +21,18 @@ export default function Gallery() {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {images.map((image) => (
           <button
             key={image}
             onClick={() => setSelectedImage(image)}
-            className="relative aspect-[4/3] overflow-hidden rounded-lg bg-neutral-900 hover:opacity-90 transition-opacity cursor-pointer"
+            className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-white shadow-md hover:shadow-xl transition-shadow cursor-pointer"
           >
             <Image
               src={`/${image}`}
               alt="Custom fishing rod"
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </button>
@@ -42,11 +42,11 @@ export default function Gallery() {
       {/* Lightbox */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-navy/95 z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <button
-            className="absolute top-4 right-4 text-white text-4xl hover:text-neutral-300"
+            className="absolute top-4 right-4 text-white text-4xl hover:text-teal-light transition-colors"
             onClick={() => setSelectedImage(null)}
             aria-label="Close"
           >

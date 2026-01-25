@@ -3,4 +3,11 @@
 @theme {
   --font-heading: var(--font-heading), Georgia, serif;
   --font-body: var(--font-body), system-ui, sans-serif;
+
+  /* Custom colors - navy and ocean teal */
+  --color-navy: #002138;
+  --color-navy-light: #003354;
+  --color-teal: #0093A5;
+  --color-teal-light: #00B4CC;
+  --color-sand: #F8F6F3;
 }
