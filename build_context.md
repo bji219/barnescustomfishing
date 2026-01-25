@@ -5,6 +5,7 @@
 4. Create any linting and tests required to get the site functional. Use Playwright to test in browser if necessary.
 5. The website should have a minimalistic style focused on showcasing the art that the client produces with minimal text (but optional to add descriptions or captions to images as needed).
 6. The site should link to the client's instagram page for more.
+7. There are example images in the /assets folder. Showcase these on the site's homepage.
 
 ## Client's Instagram Page
 - https://www.instagram.com/barnescustomfishing?igsh=MXZudG9qdWFuNXExMQ==
