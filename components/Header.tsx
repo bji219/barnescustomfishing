@@ -6,14 +6,14 @@ export default function Header() {
   return (
     <header className="bg-white border-b border-navy/10">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between py-4 md:py-0 md:h-20 gap-3 md:gap-0">
           {/* Logo / Brand */}
-          <Link href="/" className="font-heading text-2xl md:text-3xl font-light tracking-wide text-navy">
+          <Link href="/" className="font-heading text-2xl md:text-3xl font-light tracking-wide text-navy text-center">
             Barnes Custom Fishing
           </Link>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-8">
+          <nav className="flex items-center gap-6 md:gap-8">
             <Link
               href="#products"
               className="text-navy/70 hover:text-teal transition-colors font-medium tracking-wide text-sm uppercase"
