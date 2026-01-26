@@ -40,9 +40,8 @@ export default function Home() {
               Our Story
             </h2>
             <p className="text-navy/70 text-lg leading-relaxed mb-6">
-              Barnes Custom Fishing is dedicated to crafting premium hand wrapped fishing rods for serious anglers.
-              Based in Manahawkin, New Jersey, we combine traditional craftsmanship with modern
-              techniques to create rods that perform when it matters most.
+              We are a small batch, custom art-focused rod builder exploring the boundaries of light tackle & advanced carbon prototype blanks for offshore and nearshore species off the New Jersey coast.
+              Based in Manahawkin, NJ we take pride in hand crafting the very latest in rod technology.
             </p>
             <p className="text-navy/70 text-lg leading-relaxed">
               Every rod is hand wrapped with attention to detail and a commitment to quality
