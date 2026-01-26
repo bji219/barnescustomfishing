@@ -27,7 +27,7 @@ export default function Home() {
               Our Work
             </h2>
             <p className="text-navy/60 text-center mb-12 max-w-xl mx-auto">
-              Each rod is custom built to your specifications
+              Each rod is unique and custom built by hand
             </p>
             <Gallery />
           </div>
