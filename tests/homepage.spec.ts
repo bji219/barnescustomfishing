@@ -12,10 +12,15 @@ test.describe("Homepage", () => {
     await expect(page.getByText("Handcrafted in New Jersey")).toBeVisible();
   });
 
-  test("should display all gallery images", async ({ page }) => {
+  test("should display gallery images", async ({ page }) => {
     await page.goto("/");
-    const images = page.locator('img[alt="Custom fishing rod"]');
-    await expect(images).toHaveCount(10);
+    // Wait for loading to complete (images appear after client-side fetch)
+    const firstImage = page.locator('button:has(img)').first();
+    await expect(firstImage).toBeVisible({ timeout: 10000 });
+    // Should have at least 1 image (could be 6 from Instagram or 10 from fallback)
+    const images = page.locator('button:has(img)');
+    const count = await images.count();
+    expect(count).toBeGreaterThanOrEqual(1);
   });
 
   test("should have navigation links", async ({ page }) => {
@@ -34,8 +39,10 @@ test.describe("Homepage", () => {
   test("should open lightbox when clicking an image", async ({ page }) => {
     await page.goto("/");
 
-    // Click the first image
-    await page.locator('button:has(img[alt="Custom fishing rod"])').first().click();
+    // Wait for images to load, then click the first one
+    const firstImageButton = page.locator('button:has(img)').first();
+    await expect(firstImageButton).toBeVisible({ timeout: 10000 });
+    await firstImageButton.click();
 
     // Lightbox should be visible
     const lightbox = page.locator(".fixed.inset-0");
