@@ -49,7 +49,7 @@ export default function Gallery() {
           return res.json();
         })
         .then((data) => {
-          const posts: InstagramPost[] = data.posts || [];
+          const posts: InstagramPost[] = Array.isArray(data) ? data : (data.posts || []);
           const galleryImages: GalleryImage[] = posts
             .filter((post) => post.mediaType === "IMAGE" || post.mediaType === "CAROUSEL_ALBUM")
             .map((post) => ({
