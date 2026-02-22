@@ -27,7 +27,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-heading font-light text-center mb-4 text-navy">
               Latest from the Shop
             </h2>
-            <p className="text-navy/60 text-center mb-16 max-w-xl mx-auto">
+            <p className="text-navy/60 text-center mb-10 max-w-xl mx-auto">
               Stories, builds, and thoughts from the bench
             </p>
             <Blog />
