@@ -6,7 +6,7 @@ export default defineConfig({
   basePath: "/studio",
   name: "barnescustomfishing",
   title: "Barnes Custom Fishing",
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "6uld4mht",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
   plugins: [structureTool()],
   schema: {
