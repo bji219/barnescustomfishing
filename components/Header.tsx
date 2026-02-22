@@ -15,10 +15,16 @@ export default function Header() {
           {/* Navigation */}
           <nav className="flex items-center gap-6 md:gap-8">
             <Link
-              href="#products"
+              href="#blog"
               className="text-navy/70 hover:text-teal transition-colors font-medium tracking-wide text-sm uppercase"
             >
-              Products
+              Blog
+            </Link>
+            <Link
+              href="#rod-art"
+              className="text-navy/70 hover:text-teal transition-colors font-medium tracking-wide text-sm uppercase"
+            >
+              Rod Art
             </Link>
             <Link
               href="#our-story"
