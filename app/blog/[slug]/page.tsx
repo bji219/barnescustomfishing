@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { client } from "@/sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder as imageUrlBuilder } from "@sanity/image-url";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 
