@@ -1,3 +1,4 @@
+import Blog from "@/components/Blog";
 import Gallery from "@/components/Gallery";
 import Header from "@/components/Header";
 
@@ -20,11 +21,24 @@ export default function Home() {
           </p>
         </section>
 
-        {/* Products Section */}
-        <section id="products" className="py-20 px-4 bg-sand">
+        {/* Blog Section */}
+        <section id="blog" className="py-20 px-4 bg-white">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-heading font-light text-center mb-4 text-navy">
-              Our Work
+              Latest from the Shop
+            </h2>
+            <p className="text-navy/60 text-center mb-16 max-w-xl mx-auto">
+              Stories, builds, and thoughts from the bench
+            </p>
+            <Blog />
+          </div>
+        </section>
+
+        {/* Rod Art Section */}
+        <section id="rod-art" className="py-20 px-4 bg-sand">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-heading font-light text-center mb-4 text-navy">
+              Rod Art
             </h2>
             <p className="text-navy/60 text-center mb-12 max-w-xl mx-auto">
               Each rod is unique and custom built by hand
