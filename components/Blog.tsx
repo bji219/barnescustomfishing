@@ -69,11 +69,16 @@ const portableTextComponents: PortableTextComponents = {
 };
 
 export default async function Blog() {
-  const posts = await client.fetch<SanityPost[]>(
-    POSTS_QUERY,
-    {},
-    { next: { revalidate: 60 } }
-  );
+  let posts: SanityPost[] = [];
+  try {
+    posts = await client.fetch<SanityPost[]>(
+      POSTS_QUERY,
+      {},
+      { next: { revalidate: 60 } }
+    );
+  } catch {
+    // Sanity not yet configured or unreachable — show placeholder
+  }
 
   if (!posts || posts.length === 0) {
     return (
