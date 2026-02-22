@@ -24,7 +24,7 @@ export default function Header() {
               href="#rod-art"
               className="text-navy/70 hover:text-teal transition-colors font-medium tracking-wide text-sm uppercase"
             >
-              Rod Art
+              Artwork
             </Link>
             <Link
               href="#our-story"

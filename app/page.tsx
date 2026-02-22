@@ -38,7 +38,7 @@ export default function Home() {
         <section id="rod-art" className="py-20 px-4 bg-sand">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-heading font-light text-center mb-4 text-navy">
-              Rod Art
+              Artwork
             </h2>
             <p className="text-navy/60 text-center mb-12 max-w-xl mx-auto">
               Each rod is unique and custom built by hand
