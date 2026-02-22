@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { client } from "@/sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder as imageUrlBuilder } from "@sanity/image-url";
 import type { PortableTextBlock } from "@portabletext/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
