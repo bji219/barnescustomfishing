@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { client } from "@/sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
-import { PortableText, PortableTextComponents } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,17 +9,21 @@ type SanityImageSource = any;
 interface SanityPost {
   _id: string;
   title: string;
+  slug: { current: string };
   publishedAt: string;
   mainImage?: SanityImageSource;
+  excerpt?: string;
   body?: PortableTextBlock[];
 }
 
 const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   _id,
   title,
+  slug,
   publishedAt,
   mainImage,
-  body
+  excerpt,
+  body[0..0]
 }`;
 
 const builder = imageUrlBuilder(client);
@@ -36,37 +40,15 @@ function formatDate(iso: string) {
   });
 }
 
-const portableTextComponents: PortableTextComponents = {
-  types: {
-    image: ({ value }: { value: SanityImageSource & { alt?: string } }) => (
-      <figure className="my-6">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={urlFor(value).width(900).url()}
-          alt={(value as { alt?: string }).alt ?? ""}
-          className="w-full rounded"
-        />
-      </figure>
-    ),
-    videoEmbed: ({ value }: { value: { url: string } }) => {
-      // Convert a standard YouTube/Vimeo watch URL to an embed URL
-      const embedUrl = value.url
-        .replace("watch?v=", "embed/")
-        .replace("youtu.be/", "www.youtube.com/embed/")
-        .replace("vimeo.com/", "player.vimeo.com/video/");
-      return (
-        <div className="my-6 aspect-video">
-          <iframe
-            src={embedUrl}
-            className="w-full h-full rounded"
-            allowFullScreen
-            title="Embedded video"
-          />
-        </div>
-      );
-    },
-  },
-};
+/** Extract a plain-text preview from the first body block when no excerpt exists. */
+function bodyPreview(blocks?: PortableTextBlock[]): string {
+  if (!blocks || blocks.length === 0) return "";
+  const first = blocks[0] as { children?: { text?: string }[] };
+  const text = (first.children ?? [])
+    .map((span) => span.text ?? "")
+    .join("");
+  return text.length > 220 ? text.slice(0, 220).trimEnd() + "…" : text;
+}
 
 export default async function Blog() {
   let posts: SanityPost[] = [];
@@ -89,38 +71,46 @@ export default async function Blog() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-16">
-      {posts.map((post) => (
-        <article
-          key={post._id}
-          className="border-b border-navy/10 pb-16 last:border-0 last:pb-0"
-        >
-          <time className="text-sm uppercase tracking-widest text-teal font-medium">
-            {formatDate(post.publishedAt)}
-          </time>
-          <h3 className="text-2xl md:text-3xl font-heading font-light text-navy mt-2 mb-6">
-            {post.title}
-          </h3>
-          {post.mainImage && (
-            <figure className="mb-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={urlFor(post.mainImage).width(900).url()}
-                alt={post.title}
-                className="w-full rounded"
-              />
-            </figure>
-          )}
-          {post.body && (
-            <div className="prose prose-navy max-w-none text-navy/70 leading-relaxed [&_strong]:text-navy [&_p]:mb-4 [&_p:last-child]:mb-0">
-              <PortableText
-                value={post.body}
-                components={portableTextComponents}
-              />
-            </div>
-          )}
-        </article>
-      ))}
+    <div className="max-w-3xl mx-auto space-y-12">
+      {posts.map((post) => {
+        const slug = post.slug?.current;
+        const preview = post.excerpt || bodyPreview(post.body);
+
+        return (
+          <article
+            key={post._id}
+            className="border-b border-navy/10 pb-12 last:border-0 last:pb-0"
+          >
+            <Link href={`/blog/${slug}`} className="group block">
+              <time className="text-sm uppercase tracking-widest text-teal font-medium group-hover:text-teal/70 transition-colors">
+                {formatDate(post.publishedAt)}
+              </time>
+              <h3 className="text-2xl md:text-3xl font-heading font-light text-navy mt-2 mb-4 group-hover:text-navy/70 transition-colors">
+                {post.title}
+              </h3>
+            </Link>
+            {post.mainImage && (
+              <Link href={`/blog/${slug}`} className="block mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={urlFor(post.mainImage).width(900).url()}
+                  alt={post.title}
+                  className="w-full rounded"
+                />
+              </Link>
+            )}
+            {preview && (
+              <p className="text-navy/70 leading-relaxed mb-4">{preview}</p>
+            )}
+            <Link
+              href={`/blog/${slug}`}
+              className="inline-flex items-center gap-1 text-teal text-sm font-medium uppercase tracking-widest hover:gap-2 transition-all"
+            >
+              Read more <span aria-hidden>→</span>
+            </Link>
+          </article>
+        );
+      })}
     </div>
   );
 }
