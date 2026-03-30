@@ -74,7 +74,8 @@ export default async function BlogPost({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
 
   let post: SanityPost | null = null;
   try {
