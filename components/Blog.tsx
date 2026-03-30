@@ -73,7 +73,9 @@ export default async function Blog() {
   return (
     <div className="max-w-3xl mx-auto space-y-12">
       {posts.map((post) => {
-        const slug = post.slug?.current;
+        const slug = post.slug?.current
+          ? encodeURIComponent(post.slug.current)
+          : "";
         const preview = post.excerpt || bodyPreview(post.body);
 
         return (
