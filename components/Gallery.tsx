@@ -33,10 +33,25 @@ interface GalleryImage {
   isExternal: boolean;
 }
 
+const staticImages: GalleryImage[] = fallbackImages.map((img, i) => ({
+  id: `static-${i}`,
+  src: `/${img}`,
+  alt: "Custom fishing rod",
+  isExternal: false,
+}));
+
 export default function Gallery() {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [failedCount, setFailedCount] = useState(0);
+
+  useEffect(() => {
+    if (failedCount > 0 && images.some((img) => img.isExternal) && failedCount >= Math.ceil(images.length / 2)) {
+      setImages(staticImages);
+      setFailedCount(0);
+    }
+  }, [failedCount, images]);
 
   useEffect(() => {
     const feedId = process.env.NEXT_PUBLIC_BEHOLD_FEED_ID;
@@ -62,34 +77,16 @@ export default function Gallery() {
           if (galleryImages.length > 0) {
             setImages(galleryImages);
           } else {
-            // No posts, use fallback
-            setImages(fallbackImages.map((img, i) => ({
-              id: `static-${i}`,
-              src: `/${img}`,
-              alt: "Custom fishing rod",
-              isExternal: false,
-            })));
+            setImages(staticImages);
           }
           setLoading(false);
         })
         .catch(() => {
-          // Error fetching, use fallback
-          setImages(fallbackImages.map((img, i) => ({
-            id: `static-${i}`,
-            src: `/${img}`,
-            alt: "Custom fishing rod",
-            isExternal: false,
-          })));
+          setImages(staticImages);
           setLoading(false);
         });
     } else {
-      // No feed ID configured, use static images
-      setImages(fallbackImages.map((img, i) => ({
-        id: `static-${i}`,
-        src: `/${img}`,
-        alt: "Custom fishing rod",
-        isExternal: false,
-      })));
+      setImages(staticImages);
       setLoading(false);
     }
   }, []);
@@ -123,6 +120,7 @@ export default function Gallery() {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               unoptimized={image.isExternal}
+              onError={() => image.isExternal && setFailedCount((n) => n + 1)}
             />
           </button>
         ))}
